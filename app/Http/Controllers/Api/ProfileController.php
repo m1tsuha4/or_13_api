@@ -51,9 +51,6 @@ class ProfileController extends Controller
             'RAM' => 'required',
             'VGA' => 'required',
         ]);
-        // if ($validated->fails()) {
-        //     return response()->json($validated->errors(), 422);
-        // }
         $profile = Profile::insert([
             'user_id' => $request->user()->id,
             'nama_lengkap' => $request->nama_lengkap,
@@ -77,7 +74,6 @@ class ProfileController extends Controller
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
         ]);
-        // return new ProfileResource(true, 'Data Profile Berhasil Ditambahkan!', $profile);
         if ($profile) {
             return response()->json([
                 'succes' => true,
@@ -117,9 +113,6 @@ class ProfileController extends Controller
             'RAM' => 'required',
             'VGA' => 'required',
         ]);
-        // if ($validated->fails()) {
-        //     return response()->json($validated->errors(), 422);
-        // }
         $profile = Profile::where('user_id', $request->user()->id)->first();
         $profile->update([
             'user_id' => $request->user()->id,
@@ -144,7 +137,6 @@ class ProfileController extends Controller
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
         ]);
-        // return new ProfileResource(true, 'Data Profile Berhasil Ditambahkan!', $profile);
         if ($profile) {
             return response()->json([
                 'succes' => true,
@@ -205,69 +197,9 @@ class ProfileController extends Controller
         }
     }
 
-    // public function update(Request $request)
-    // {
-    //     // define Validator
-    //     $validator = Validator::make($request->all(), [
-    //         'nama_lengkap' => 'required',
-    //         'krs' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //         'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return response()->json($validator->errors(), 422);
-    //     }
-    //     //check if field empty
-    //     $profile = Profile::where('user_id', $request->user()->id)->first();
-    //     if ($request->hasFile('krs', 'bukti_pembayaran')) {
-    //         //upload image
-    //         $krs = $request->file('krs');
-    //         $bukti_pembayaran = $request->file('bukti_pembayaran');
-    //         $krs->storeAS('public/profiles', $krs->hashName());
-    //         $bukti_pembayaran->storeAS('public/profiles', $bukti_pembayaran->hashName());
-    //         //delete old image
-
-    //         Storage::delete('public/profiles/' . $profile->krs);
-    //         Storage::delete('public/profiles/' . $profile->bukti_pembayaran);
-    //         //update
-    //         $profile->update([
-    //             'nama_lengkap' => $request->nama_lengkap,
-    //             'divisi' => $request->divisi,
-    //             'krs' => $krs->hashName(),
-    //             'bukti_pembayaran' => $bukti_pembayaran->hashName(),
-    //         ]);
-    //     } else {
-    //         //update without img
-    //         $profile->update([
-    //             'nama_lengkap' => $request->nama_lengkap,
-    //             'divisi' => $request->divisi
-    //         ]);
-    //     }
-    //     return new ProfileResource(true, 'Data Berhasil Diupdate!', $profile);
-    // }
-
-    // public function destroy(Profile $profile)
-    // {
-    //     //delete img
-    //     Storage::delete('public/profiles/' . $profile->krs);
-    //     Storage::delete('public/profiles/' . $profile->bukti_pembayaran);
-    //     //delete profile
-    //     $profile->delete();
-    //     return new ProfileResource(true, 'Data Berhasil Dihapus!', null);
-    // }
-    public function store(Request $request)
-    {
-        $path = $request->file('file')->store('public/files');
-
-        return response()->json([
-            'message' => 'File saved successfully.',
-            'path' => $path
-        ]);
-    }
-
     public function show_file($filename)
     {
-        $path = storage_path('app/public/files/' . $filename);
+        $path = storage_path('app/public/profiles/' . $filename);
 
         if (!file_exists($path)) {
             return response()->json(['message' => 'File not found.'], 404);
@@ -277,11 +209,5 @@ class ProfileController extends Controller
 
         return response($file, 200)->header('Content-Type', mime_content_type($path));
         $file = Storage::get($path);
-        // $type = Storage::mimeType($path);
-
-        // $response = Response::make($file, 200);
-        // $response->header("Content-Type", $type);
-    
-        // return $response;
     }
 }
