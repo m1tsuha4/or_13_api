@@ -50,7 +50,10 @@ class ProfileController extends Controller
             'processor' => 'required',
             'RAM' => 'required',
             'VGA' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $foto = $request->file('foto');
+        $foto->storeAS('public/profiles', $foto->hashName());
         $profile = Profile::insert([
             'user_id' => $request->user()->id,
             'nama_lengkap' => $request->nama_lengkap,
@@ -73,6 +76,7 @@ class ProfileController extends Controller
             'processor' => $request->processor,
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if ($profile) {
             return response()->json([
@@ -112,7 +116,10 @@ class ProfileController extends Controller
             'processor' => 'required',
             'RAM' => 'required',
             'VGA' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $foto = $request->file('foto');
+        $foto->storeAS('public/profiles', $foto->hashName());
         $profile = Profile::where('user_id', $request->user()->id)->first();
         $profile->update([
             'user_id' => $request->user()->id,
@@ -136,6 +143,7 @@ class ProfileController extends Controller
             'processor' => $request->processor,
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if ($profile) {
             return response()->json([
