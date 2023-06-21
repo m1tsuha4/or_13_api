@@ -76,7 +76,7 @@ class ProfileController extends Controller
             'processor' => $request->processor,
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => $foto->hashName(),
         ]);
         if ($profile) {
             return response()->json([
@@ -143,7 +143,7 @@ class ProfileController extends Controller
             'processor' => $request->processor,
             'RAM' => $request->RAM,
             'VGA' => $request->VGA,
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto' => $foto->hashName(),
         ]);
         if ($profile) {
             return response()->json([

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\EmailVerificationController;
+use App\Http\Requests\EmailVerificationRequest;
 use App\Http\Controllers\Api\NewPasswordController;
 
 /*
@@ -14,7 +15,7 @@ use App\Http\Controllers\Api\NewPasswordController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which    
+| routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
@@ -24,9 +25,10 @@ Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->na
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout')->middleware(['cors','jwt.verify']);
 Route::post('/password', App\Http\Controllers\Api\PasswordController::class)->name('password')->middleware(['cors','jwt.verify']);
 Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])->middleware(['cors','jwt.verify']);
-Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->middleware(['cors','jwt.verify']);
+Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->middleware(['cors']);
 Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword'])->middleware('cors');
 Route::post('reset-password', [NewPasswordController::class, 'reset'])->middleware('cors');
+//Route::get('verify-email/{id}/{hash}', function (EmailVerificationRequest $request) {$request->fulfill();});
 // route user
 Route::controller(ProfileController::class)->group(function(){
     Route::get('profile/show', 'show')->middleware(['cors','jwt.verify']);
