@@ -30,13 +30,6 @@ return new class extends Migration
             $table->string('asal');
             $table->string('no_hp');
             $table->string('agama');
-            $table->string('hobi');
-            $table->string('cita_cita');
-            $table->string('riwayat_penyakit');
-            $table->string('laptop');
-            $table->string('processor');
-            $table->string('RAM');
-            $table->string('VGA');
             $table->string('foto')->nullable();
             $table->string('krs')->nullable();
             $table->string('bukti_pembayaran')->nullable();

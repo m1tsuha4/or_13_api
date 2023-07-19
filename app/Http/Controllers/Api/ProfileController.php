@@ -43,13 +43,6 @@ class ProfileController extends Controller
             'asal' => 'required',
             'no_hp' => 'required',
             'agama' => 'required',
-            'hobi' => 'required',
-            'cita_cita' => 'required',
-            'riwayat_penyakit' => 'required',
-            'laptop' => 'required',
-            'processor' => 'required',
-            'RAM' => 'required',
-            'VGA' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $foto = $request->file('foto');
@@ -69,13 +62,6 @@ class ProfileController extends Controller
             'asal' => $request->asal,
             'no_hp' => $request->no_hp,
             'agama' => $request->agama,
-            'hobi' => $request->hobi,
-            'cita_cita' => $request->cita_cita,
-            'riwayat_penyakit' => $request->riwayat_penyakit,
-            'laptop' => $request->laptop,
-            'processor' => $request->processor,
-            'RAM' => $request->RAM,
-            'VGA' => $request->VGA,
             'foto' => $foto->hashName(),
         ]);
         if ($profile) {
@@ -109,13 +95,6 @@ class ProfileController extends Controller
             'asal' => 'required',
             'no_hp' => 'required',
             'agama' => 'required',
-            'hobi' => 'required',
-            'cita_cita' => 'required',
-            'riwayat_penyakit' => 'required',
-            'laptop' => 'required',
-            'processor' => 'required',
-            'RAM' => 'required',
-            'VGA' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $foto = $request->file('foto');
@@ -136,13 +115,6 @@ class ProfileController extends Controller
             'asal' => $request->asal,
             'no_hp' => $request->no_hp,
             'agama' => $request->agama,
-            'hobi' => $request->hobi,
-            'cita_cita' => $request->cita_cita,
-            'riwayat_penyakit' => $request->riwayat_penyakit,
-            'laptop' => $request->laptop,
-            'processor' => $request->processor,
-            'RAM' => $request->RAM,
-            'VGA' => $request->VGA,
             'foto' => $foto->hashName(),
         ]);
         if ($profile) {

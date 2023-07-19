@@ -16,7 +16,11 @@ class AdminController extends Controller
     }
     public function show_auser(Request $request)
     {
-        $profile = Profile::find($request->id);
+        $profile = Profile::join('users', 'profiles.user_id', '=', 'users.id')
+                        ->where('profiles.id', $request->id)
+                        ->select('users.email','profiles.*')
+                        ->first();
+//        $profile = Profile::find($request->id);
         if ($profile) {
             return response()->json([
                 'success' => true,
