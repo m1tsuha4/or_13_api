@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
 
 class Profile extends Model
 {
@@ -38,4 +40,22 @@ class Profile extends Model
         'status_aktif',
         'zona',
     ];
+    protected function foto(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($foto) => asset('/storage/profiles/' . $foto),
+        );
+    }
+    protected function krs(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($krs) => asset('/storage/krs/' . $krs),
+        );
+    }
+    protected function buktiPembayaran(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($bukti_pembayaran) => asset('/storage/pembayaran/' . $bukti_pembayaran),
+        );
+    }
 }

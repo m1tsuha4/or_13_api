@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -97,9 +98,10 @@ class ProfileController extends Controller
             'agama' => 'required',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $foto = $request->file('foto');
-        $foto->storeAS('public/profiles', $foto->hashName());
+
+
         $profile = Profile::where('user_id', $request->user()->id)->first();
+
         $profile->update([
             'user_id' => $request->user()->id,
             'nama_lengkap' => $request->nama_lengkap,
@@ -115,8 +117,23 @@ class ProfileController extends Controller
             'asal' => $request->asal,
             'no_hp' => $request->no_hp,
             'agama' => $request->agama,
-            'foto' => $foto->hashName(),
         ]);
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+
+            if ($profile->foto) {
+                $filename = Str::afterLast($profile->foto, '/');
+                if (Storage::exists('public/profiles/' . $filename)) {
+                    Storage::delete('public/profiles/' . $filename);
+                }
+            }
+            $foto->storeAs('public/profiles', $foto->hashName());
+            $profile->update([
+                'foto' =>  $foto->hashName(),
+            ]);
+        }
+
         if ($profile) {
             return response()->json([
                 'succes' => true,
@@ -141,20 +158,31 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
-        //upload image
         $krs = $request->file('krs');
         $bukti_pembayaran = $request->file('bukti_pembayaran');
-        $krs->storeAS('public/profiles', $krs->hashName());
-        $bukti_pembayaran->storeAS('public/profiles', $bukti_pembayaran->hashName());
-
-        //create profile
         $profile = Profile::where('user_id', $request->user()->id)->first();
+        if ($profile) {
+            if (Str::startsWith($profile->krs, 'http://') || Str::startsWith($profile->krs, 'https://')) {
+                $filename = Str::afterLast($profile->krs, '/');
+                if (Storage::exists('public/krs/' . $filename)) {
+                    Storage::delete('public/krs/' . $filename);
+                }
+            }
+
+            if (Str::startsWith($profile->bukti_pembayaran, 'http://') || Str::startsWith($profile->bukti_pembayaran, 'https://')) {
+                $filename = Str::afterLast($profile->bukti_pembayaran, '/');
+                if (Storage::exists('public/pembayaran/' . $filename)) {
+                    Storage::delete('public/pembayaran/' . $filename);
+                }
+            }
+        }
+        $krs->storeAs('public/krs', $krs->hashName());
+        $bukti_pembayaran->storeAs('public/pembayaran', $bukti_pembayaran->hashName());
         $profile->update([
-            // 'user_id' => $request->user()->id,
             'krs' => $krs->hashName(),
             'bukti_pembayaran' => $bukti_pembayaran->hashName(),
         ]);
+
         return new ProfileResource(true, 'Data Profile Berhasil Ditambahkan!', $profile);
     }
 
@@ -190,4 +218,6 @@ class ProfileController extends Controller
         return response($file, 200)->header('Content-Type', mime_content_type($path));
         $file = Storage::get($path);
     }
+
+
 }

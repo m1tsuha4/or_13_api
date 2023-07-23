@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -32,13 +32,13 @@ class PasswordController extends Controller
         if(isset($user)) {
             return response()->json([
                     'success' => true,
-                    'user'    => $user,  
+                    'user'    => $user,
                 ], 201);
-            }  
-            //return JSON process insert failed 
+            }
+            //return JSON process insert failed
             return response()->json([
                 'success' => false,
             ], 409);
-        
+
     }
 }

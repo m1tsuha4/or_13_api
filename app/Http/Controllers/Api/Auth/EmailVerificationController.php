@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,9 +50,10 @@ class EmailVerificationController extends Controller
 //        }
         if (!$user->hasVerifiedEmail()) {
             $user->markEmailAsVerified();
-            return [
-                'message' => 'Email has been verified'
-            ];
+//            return [
+//                'message' => 'Email has been verified'
+//            ];
+            return view('verifiedEmail');
         }
 
 //        if ($user()->markEmailAsVerified()) {

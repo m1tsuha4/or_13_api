@@ -5,9 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\EmailVerificationController;
+use App\Http\Controllers\Api\Auth\EmailVerificationController;
 use App\Http\Requests\EmailVerificationRequest;
-use App\Http\Controllers\Api\NewPasswordController;
+use App\Http\Controllers\Api\Auth\NewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +20,10 @@ use App\Http\Controllers\Api\NewPasswordController;
 |
 */
 // route auth user and admin
-Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login')->middleware('cors');;
-Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register')->middleware('cors');
-Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout')->middleware(['cors','jwt.verify']);
-Route::post('/password', App\Http\Controllers\Api\PasswordController::class)->name('password')->middleware(['cors','jwt.verify']);
+Route::post('/login', App\Http\Controllers\Api\Auth\LoginController::class)->name('login')->middleware('cors');;
+Route::post('/register', App\Http\Controllers\Api\Auth\RegisterController::class)->name('register')->middleware('cors');
+Route::post('/logout', App\Http\Controllers\Api\Auth\LogoutController::class)->name('logout')->middleware(['cors','jwt.verify']);
+Route::post('/password', App\Http\Controllers\Api\Auth\PasswordController::class)->name('password')->middleware(['cors','jwt.verify']);
 Route::post('email/verification-notification', [EmailVerificationController::class, 'sendVerificationEmail'])->middleware(['cors','jwt.verify']);
 Route::get('verify-email/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify')->middleware(['cors']);
 Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword'])->middleware('cors');
