@@ -207,17 +207,24 @@ class ProfileController extends Controller
 
     public function show_file($filename)
     {
-        $path = storage_path('app/public/profiles/' . $filename);
+        $paths = [
+            storage_path('app/public/profiles/' . $filename),
+            storage_path('app/public/krs/' . $filename),
+            storage_path('app/public/pembayaran/' . $filename)
+        ];
 
-        if (!file_exists($path)) {
-            return response()->json(['message' => 'File not found.'], 404);
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                $file = file_get_contents($path);
+                $mime_type = mime_content_type($path);
+
+                return response($file, 200)->header('Content-Type', $mime_type);
+            }
         }
 
-        $file = file_get_contents($path);
-
-        return response($file, 200)->header('Content-Type', mime_content_type($path));
-        $file = Storage::get($path);
+        return response()->json(['message' => 'File not found.'], 404);
     }
+
 
 
 }
