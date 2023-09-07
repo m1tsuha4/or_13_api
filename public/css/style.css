@@ -1,0 +1,40 @@
+.bgDashboard{
+    background: #301D54 !important;
+}
+.sidebarLi:hover, .sidebarLiActive{
+    border-right: 5px solid #D58DBB;
+}
+.content{
+    overflow: auto;
+}
+.btn-ujian{
+    border-radius: 8px;
+    background: #301D54;
+    width: 262px;
+    height: 60px;
+}
+.color-or{
+    color: #301D54;
+}
+.tanggal{
+    width: 191px;
+    height: 56px;
+    border-radius: 8px;
+}
+.border-ujian{
+    border-radius: 15px;
+    border: 2px solid #FBE4EC;
+}
+.jawab{
+    border-radius: 5px;
+    background: #FBE4EC;
+    min-height: 36px;
+    margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.jawab-active{
+    background: #9F4A90;
+    font-weight: bold;
+}

@@ -16,3 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("/ujian/aturan", function () {
+    return view("aturan");
+});
+
+Route::get("ujian/mmd", function () {
+    return view("1");
+});
+Route::get("ujian/prog", function () {
+    return view("2");
+});
+Route::get("ujian/skj", function () {
+    return view("3");
+});
+Route::get("ujian/organisasi", function () {
+    return view("4");
+});
