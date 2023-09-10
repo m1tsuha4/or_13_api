@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ExamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,19 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/ujian/aturan", function () {
-    return view("aturan");
+Route::controller(ExamController::class)->group(function(){
+    Route::get('/ujian/aturan/{ujianId}/{user_id}', 'ruleView')->name('ruleView');
+    Route::post('/ujian/{ujianId}/{user_id}', 'startExam')->name('startExam');
+    Route::get('/ujian/{ujianId}/{user_id}/start', 'onExam')->name('onExam');
+    Route::post('/ujian/{ujianId}/{user_id}/save', 'save')->name('saveExam');
+    Route::post('/ujian/{ujianId}/{user_id}/end', 'end')->name('endExam');
+    Route::get('/ujian/{ujianId}/{user_id}/end', 'end')->name('endExam');
+    Route::get('/ujian/{ujianId}/{user_id}/result', 'result')->name('resultExam');
 });
 
-Route::get("ujian/mmd", function () {
-    return view("1");
-});
-Route::get("ujian/prog", function () {
-    return view("2");
-});
-Route::get("ujian/skj", function () {
-    return view("3");
-});
-Route::get("ujian/organisasi", function () {
-    return view("4");
-});

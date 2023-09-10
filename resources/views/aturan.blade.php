@@ -20,7 +20,11 @@
             </ol>
         </div>
         <div class="col-12 mt-5">
-            <a href="" class="d-flex align-items-center justify-content-center text-decoration-none btn-ujian text-white">Mulai Ujian</a>
+            <form method="post" id="startExam" action="{{ route('startExam',['ujianId' => $ujianId, 'user_id' => $user_id]) }}">
+                @csrf
+                <button class="d-flex align-items-center justify-content-center text-decoration-none btn-ujian text-white" type="submit">Mulai Ujian</button>
+{{--                <a href="" class="d-flex align-items-center justify-content-center text-decoration-none btn-ujian text-white">Mulai Ujian</a>--}}
+            </form>
         </div>
     </div>
 </div>

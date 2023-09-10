@@ -150,7 +150,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <form action="" method="">
+        <form action="{{ route('endExam',[$ujianId,$user_id]) }}" method="post">
             @csrf
             <div class="row" style="gap: 2rem">
                 @foreach ($data as $da)
@@ -161,19 +161,19 @@
                     </div>
                     <div class="jawaban">
                         <div class="jawab">
-                            <input type="radio" name={{ $da["no"] }} id="{{ $da["no"] }}a" value="a" class="ms-3">
+                            <input type="radio" name="jawaban{{ $da['no'] }}" id="{{ $da["no"] }}a" value="a" class="ms-3">
                             <label for="{{ $da["no"] }}a">{{ $da["a"] }}</label>
                         </div>
                         <div class="jawab">
-                            <input type="radio" name={{ $da["no"] }} id="{{ $da["no"] }}b" value="b" class="ms-3">
+                            <input type="radio" name="jawaban{{ $da['no'] }}"  id="{{ $da["no"] }}b" value="b" class="ms-3">
                             <label for="{{ $da["no"] }}b">{{ $da["b"] }}</label>
                         </div>
                         <div class="jawab">
-                            <input type="radio" name={{ $da["no"] }} id="{{ $da["no"] }}c" value="c" class="ms-3">
+                            <input type="radio" name="jawaban{{ $da['no'] }}"  id="{{ $da["no"] }}c" value="c" class="ms-3">
                             <label for="{{ $da["no"] }}c">{{ $da["c"] }}</label>
                         </div>
                         <div class="jawab">
-                            <input type="radio" name={{ $da["no"] }} id="{{ $da["no"] }}d" value="d" class="ms-3">
+                            <input type="radio" name="jawaban{{ $da['no'] }}"  id="{{ $da["no"] }}d" value="d" class="ms-3">
                             <label for="{{ $da["no"] }}d">{{ $da["d"] }}</label>
                         </div>
                     </div>
@@ -185,6 +185,12 @@
             </div>
         </form>
     </div>
+{{--    <div class="position-fixed start-50 top-50 translate-middle w-50 popUp" id="message">--}}
+{{--        <div style="align-items: center" class="passNsame messageNsame border d-none w-75">--}}
+{{--            <p class="h4 text-center fw-bold pPass @if(session('status') === 'Success') text-success @else text-danger @endif">{{ session('title') }}</p>--}}
+{{--            <p class="fs-6 text-center @if(session('status') === 'Success') text-success @else text-danger @endif">{{ session('message') }}</p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </div>
 
 <script>

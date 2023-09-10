@@ -27,58 +27,58 @@ class ProfileController extends Controller
         // return new ProfileResource(true, 'List Data Profile', $profiles);
     }
 
-    public function store_profile(Request $request)
-    {
+    // public function store_profile(Request $request)
+    // {
 
-        $request->validate([
-            'nama_lengkap' => 'required',
-            'nim' => 'required',
-            'divisi' => 'required',
-            'sub_divisi' => 'required',
-            'fakultas' => 'required',
-            'jurusan' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
-            'asal' => 'required',
-            'no_hp' => 'required',
-            'agama' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $foto = $request->file('foto');
-        $foto->storeAS('public/profiles', $foto->hashName());
-        $profile = Profile::insert([
-            'user_id' => $request->user()->id,
-            'nama_lengkap' => $request->nama_lengkap,
-            'nim' => $request->nim,
-            'divisi' => $request->divisi,
-            'sub_divisi' => $request->sub_divisi,
-            'fakultas' => $request->fakultas,
-            'jurusan' => $request->jurusan,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'asal' => $request->asal,
-            'no_hp' => $request->no_hp,
-            'agama' => $request->agama,
-            'foto' => $foto->hashName(),
-        ]);
-        if ($profile) {
-            return response()->json([
-                'succes' => true,
-                'message' => 'Data Profile Berhasil Di Tambahkan!',
-                'data' => $profile
-            ], 200);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Profile Gagal Disimpan!',
-                'data' => ''
-            ], 401);
-        }
-    }
+    //     $request->validate([
+    //         'nama_lengkap' => 'required',
+    //         'nim' => ['required', 'regex:/^(22|23)\d{8}$/'],
+    //         'divisi' => 'required',
+    //         'sub_divisi' => 'required',
+    //         'fakultas' => 'required',
+    //         'jurusan' => 'required',
+    //         'tempat_lahir' => 'required',
+    //         'tanggal_lahir' => 'required',
+    //         'jenis_kelamin' => 'required',
+    //         'alamat' => 'required',
+    //         'asal' => 'required',
+    //         'no_hp' => 'required',
+    //         'agama' => 'required',
+    //         'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ]);
+    //     $foto = $request->file('foto');
+    //     $foto->storeAS('public/profiles', $foto->hashName());
+    //     $profile = Profile::insert([
+    //         'user_id' => $request->user()->id,
+    //         'nama_lengkap' => $request->nama_lengkap,
+    //         'nim' => $request->nim,
+    //         'divisi' => $request->divisi,
+    //         'sub_divisi' => $request->sub_divisi,
+    //         'fakultas' => $request->fakultas,
+    //         'jurusan' => $request->jurusan,
+    //         'tempat_lahir' => $request->tempat_lahir,
+    //         'tanggal_lahir' => $request->tanggal_lahir,
+    //         'jenis_kelamin' => $request->jenis_kelamin,
+    //         'alamat' => $request->alamat,
+    //         'asal' => $request->asal,
+    //         'no_hp' => $request->no_hp,
+    //         'agama' => $request->agama,
+    //         'foto' => $foto->hashName(),
+    //     ]);
+    //     if ($profile) {
+    //         return response()->json([
+    //             'succes' => true,
+    //             'message' => 'Data Profile Berhasil Di Tambahkan!',
+    //             'data' => $profile
+    //         ], 200);
+    //     } else {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Profile Gagal Disimpan!',
+    //             'data' => ''
+    //         ], 401);
+    //     }
+    // }
     public function update_profile(Request $request)
     {
 
@@ -144,6 +144,82 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Profile Gagal Disimpan!',
+                'data' => ''
+            ], 401);
+        }
+    }
+
+    public function store_profile(Request $request)
+    {
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'nim' => ['required', 'regex:/^(22|23)\d{8}$/'],
+            'divisi' => 'required',
+            'sub_divisi' => 'required',
+            'fakultas' => 'required',
+            'jurusan' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'asal' => 'required',
+            'no_hp' => 'required',
+            'agama' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $profileData = [
+            'user_id' => $request->user()->id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'nim' => $request->nim,
+            'divisi' => $request->divisi,
+            'sub_divisi' => $request->sub_divisi,
+            'fakultas' => $request->fakultas,
+            'jurusan' => $request->jurusan,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'asal' => $request->asal,
+            'no_hp' => $request->no_hp,
+            'agama' => $request->agama,
+        ];
+
+        $existingProfile = Profile::where('user_id', $request->user()->id)->first();
+
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto');
+
+            if ($existingProfile && $existingProfile->foto) {
+                $filename = Str::afterLast($existingProfile->foto, '/');
+                if (Storage::exists('public/profiles/' . $filename)) {
+                    Storage::delete('public/profiles/' . $filename);
+                }
+            }
+
+            $foto->storeAs('public/profiles', $foto->hashName());
+            $profileData['foto'] = $foto->hashName();
+        }
+
+        if ($existingProfile) {
+            // Jika profil sudah ada, lakukan update
+            $existingProfile->update($profileData);
+            $profile = $existingProfile;
+        } else {
+            // Jika profil belum ada, lakukan insert
+            $profile = Profile::create($profileData);
+        }
+
+        if ($profile) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data Profile Berhasil Di Simpan atau Di Update!',
+                'data' => $profile
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Gagal Disimpan atau Di Update!',
                 'data' => ''
             ], 401);
         }
