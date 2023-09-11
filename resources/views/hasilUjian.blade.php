@@ -1,24 +1,33 @@
-
 @extends("layouts.dashboard")
-
 @section("content")
-    <div class="row rowHasilUjian">
-        <p class="jUjianOnline">Hasil Ujian</p>
-        <div class="d-flex flex-wrap">
-            <div class="hasilUjian">
-                <i class='bx bx-check benar'></i>
-                <p class="pHasil">Jawaban Benar</p>
-                <p class="aHasil mb-0">{{ $benar }}</p>
+
+    <div class="col px-md-5 py-3 min-vh-100 content">
+        <div class="row my-md-3 align-items-center">
+            <div class="col-6">
+                <p class="fs-4 fw-bold mb-md-0 color-or">Ujian Online</p>
             </div>
-            <div class="hasilUjian">
-                <i class='bx bx-x salah mt-0'></i>
-                <p class="pHasil">Jawaban Salah</p>
-                <p class="aHasil mb-0">{{ $salah }}</p>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <p class="fs-4 fw-bold mb-md-0 color-or mt-5">Hasil Akhir Ujian</p>
             </div>
-            <div class="hasilUjian">
-                <p class="pHasil">Nilai :</p>
-                <p class="aHasil mb-0">{{ $score }}</p>
+        </div>
+        <div class="row" style="gap: 1rem">
+            <div class="col-md-3 border rounded-4 d-flex flex-column justify-content-center align-items-center py-4">
+                <i class="fs-1 bi bi-check-circle-fill" style="color: #301D54;"></i>
+                <p class="fs-6 fw-bold mb-0">Jawaban Benar</p>
+                <p class="fs-4 fw-bold">{{ $benar }}</p>
+            </div>
+            <div class="col-md-3 border rounded-4 d-flex flex-column justify-content-center align-items-center py-4">
+                <i class="fs-1 bi bi-x-circle-fill" style="color: #B966A3"></i>
+                <p class="fs-6 fw-bold mb-0">Jawaban Salah</p>
+                <p class="fs-4 fw-bold">{{ $salah }}</p>
+            </div>
+            <div class="col-md-3 border rounded-4 d-flex flex-column justify-content-center align-items-center py-4">
+                <p class="fs-6 fw-bold mb-0">Nilai</p>
+                <p class="fs-4 fw-bold">{{ $score }}</p>
             </div>
         </div>
     </div>
+
 @endsection

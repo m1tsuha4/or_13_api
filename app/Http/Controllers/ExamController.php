@@ -31,17 +31,6 @@ class ExamController extends Controller
     }
 
     public function ruleView(Request $request, $ujianId,$user_id){
-//        $user = $request->user();
-//        if (!$user->profile_verified){
-//            return redirect()
-//                ->route('ujianView')
-//                ->with([
-//                    'status' => 'Failed',
-//                    'title' => 'Bukan Peserta OR',
-//                    'message' => 'Tidak dapat mengikuti ujian online'
-//                ]);
-//        }
-//        dd($token);
         $profile = Profile::where('user_id', $user_id)->first();
         $exam = UserExam::firstOrCreate([
             'userexam_nim' => $profile->nim,
@@ -90,7 +79,7 @@ class ExamController extends Controller
 
     public function startExam(Request $request, $ujianId,$user_id): \Illuminate\Http\RedirectResponse
     {
-//        $user = $request->user();
+
         $profile = Profile::where('user_id', $user_id)->first();
         $nim = $profile->nim;
 //        dd($profile);
@@ -123,7 +112,7 @@ class ExamController extends Controller
                     'user_id' => $user_id
                 ]);
         }
-//        dd($userExam);
+
         if ($userExam->selesai){
             abort(403);
         }
@@ -139,7 +128,7 @@ class ExamController extends Controller
             $userExam->jawaban = json_encode($jawaban);
             $userExam->start = now();
             $userExam->save();
-//            dd($sisa);
+
         }else{
             return redirect()
                 ->route('onExam',['ujianId' => $ujianId, 'user_id' => $user_id]);
@@ -156,10 +145,6 @@ class ExamController extends Controller
 
 
     public function onExam(Request $request, $ujianId,$user_id){
-//        $user = $request->user();
-//        $exam = $user->exams()
-//            ->where('divisi_id', $ujianId)
-//            ->firstOrFail();
         $profile = Profile::where('user_id', $user_id)->first();
         $nim = $profile->nim;
         $userExam = UserExam::where('divisi_id', $ujianId)
@@ -196,7 +181,7 @@ class ExamController extends Controller
                 ]);
         }
         $waktu = (20*60) - $this->sisaDateTime(now(), $userExam->start);
-//        dd($waktu);
+
         if ($waktu<1){
             return redirect()
                 ->route('endExam',['ujianId' => $ujianId, 'user_id' => $user_id]);

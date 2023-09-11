@@ -193,18 +193,61 @@
 {{--    </div>--}}
 </div>
 
+{{--<script>--}}
+{{--    function hasClass(element, className) {--}}
+{{--        return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;--}}
+{{--    }--}}
+{{--    let time = document.getElementById("time"),--}}
+{{--        // Waktu awal (20 menit dalam detik)--}}
+{{--        reload = new Date().getTime() + 20 * 60 * 1000,--}}
+{{--        durasi = 20 * 60; // Durasi dalam detik (20 menit)--}}
+
+{{--    setInterval(() => {--}}
+{{--        const sekarang = new Date().getTime();--}}
+{{--        const totalSeconds = Math.max(0, Math.floor((reload - sekarang) / 1000));--}}
+{{--        const mins = Math.floor(totalSeconds / 60) % 60;--}}
+{{--        const seconds = totalSeconds % 60;--}}
+
+{{--        // Format waktu dalam format 'mm:ss'--}}
+{{--        const waktuFormatted = mins.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');--}}
+
+{{--        time.innerHTML = waktuFormatted;--}}
+
+{{--        if (totalSeconds <= 0) {--}}
+{{--            // Waktu habis--}}
+{{--            time.innerHTML = 'Waktu Habis';--}}
+{{--        }--}}
+{{--    }, 1000);--}}
+
+{{--    let jawab = document.querySelectorAll(".jawab")--}}
+{{--    jawab.forEach(a =>{--}}
+{{--        let input = a.querySelector("input")--}}
+{{--        input.onclick = () =>{--}}
+{{--            if(!hasClass(a, "jawab-active") && input.checked){--}}
+{{--                a.classList.add("jawab-active")--}}
+{{--            }else{--}}
+{{--                a.classList.remove("jawab-active")--}}
+{{--            }--}}
+{{--            jawab.forEach(a =>{--}}
+{{--                let input = a.querySelector("input")--}}
+{{--                if(!input.checked){--}}
+{{--                    a.classList.remove("jawab-active")--}}
+{{--                }--}}
+{{--            })--}}
+{{--        }--}}
+{{--    })--}}
+
+{{--</script>--}}
 <script>
     function hasClass(element, className) {
         return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
     }
-    let time = document.getElementById("time"),
-        // Waktu awal (20 menit dalam detik)
-        reload = new Date().getTime() + 20 * 60 * 1000,
-        durasi = 20 * 60; // Durasi dalam detik (20 menit)
 
-    setInterval(() => {
-        const sekarang = new Date().getTime();
-        const totalSeconds = Math.max(0, Math.floor((reload - sekarang) / 1000));
+    let time = document.getElementById("time");
+    let sisaWaktu = {{ $waktu }}; // Sisa waktu dalam detik
+
+    function updateWaktu() {
+        const totalSeconds = Math.max(0, sisaWaktu);
         const mins = Math.floor(totalSeconds / 60) % 60;
         const seconds = totalSeconds % 60;
 
@@ -217,7 +260,31 @@
             // Waktu habis
             time.innerHTML = 'Waktu Habis';
         }
-    }, 1000);
+
+        sisaWaktu--; // Kurangi sisa waktu setiap detik
+    }
+
+    // Fungsi untuk melakukan submit otomatis
+    function submitForm() {
+        document.querySelector("form").submit();
+    }
+
+    // Memanggil fungsi pertama kali saat halaman dimuat
+    updateWaktu();
+
+    // Memperbarui waktu setiap detik
+    const intervalId = setInterval(updateWaktu, 1000);
+
+    // Memeriksa apakah waktu telah habis dan jika iya, lakukan submit otomatis
+    function checkTimeAndSubmit() {
+        if (sisaWaktu <= 0) {
+            clearInterval(intervalId); // Hentikan interval
+            submitForm(); // Lakukan submit otomatis
+        }
+    }
+
+    // Memanggil fungsi `checkTimeAndSubmit` setiap detik
+    setInterval(checkTimeAndSubmit, 1000);
 
     let jawab = document.querySelectorAll(".jawab")
     jawab.forEach(a =>{
@@ -238,5 +305,4 @@
     })
 
 </script>
-
 @endsection

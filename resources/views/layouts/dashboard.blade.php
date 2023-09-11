@@ -25,25 +25,25 @@
                     </a>
                     <ul class="nav nav-pills w-100 flex-column mb-auto align-items-center align-items-sm-start" id="menu">
                         <li class="nav-item w-100 ps-md-4 px-2 px-md-0 sidebarLi">
-                            <a href="" class="a text-white nav-link px-0 align-middle styles.navLink">
+                            <a href="http://localhost:5173/peserta/profile" class="a text-white nav-link px-0 align-middle styles.navLink">
                                 <i class="fs-4 bi bi-person-fill"></i>
                                 <span class="ms-md-4 d-none d-sm-inline">Profile</span>
                             </a>
                         </li>
                         <li class="nav-item w-100 ps-md-4 px-2 px-md-0 sidebarLi">
-                            <a href="" class="a text-white nav-link align-middle px-0 navLink">
+                            <a href="http://localhost:5173/peserta" class="a text-white nav-link align-middle px-0 navLink">
                                 <i class="fs-4 bi bi-house-fill"></i>
                                 <span class="ms-md-4 d-none d-sm-inline">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item w-100 ps-md-4 px-2 px-md-0 sidebarLi">
-                            <a href="" class="a text-white nav-link px-0 align-middle navLink">
+                            <a href="http://localhost:5173/peserta/verify" class="a text-white nav-link px-0 align-middle navLink">
                                 <i class="fs-4 bi bi-shield-fill-check"></i>
                                 <span class="ms-md-4 d-none d-sm-inline">Verify</span>
                             </a>
                         </li>
                         <li class="nav-item w-100 ps-md-4 px-2 px-md-0 sidebarLiActive">
-                            <a href="" class="a text-white nav-link px-0 align-middle navLink ">
+                            <a href="http://localhost:5173/peserta/ujian" class="a text-white nav-link px-0 align-middle navLink ">
                                 <i class="fs-4 bi bi-file-earmark-fill"></i>
                                 <span class="ms-md-4 d-none d-sm-inline">Ujian Online</span>
                             </a>

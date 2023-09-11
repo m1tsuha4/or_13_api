@@ -191,14 +191,12 @@
     function hasClass(element, className) {
         return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
     }
-    let time = document.getElementById("time"),
-        // Waktu awal (20 menit dalam detik)
-        reload = new Date().getTime() + 20 * 60 * 1000,
-        durasi = 20 * 60; // Durasi dalam detik (20 menit)
 
-    setInterval(() => {
-        const sekarang = new Date().getTime();
-        const totalSeconds = Math.max(0, Math.floor((reload - sekarang) / 1000));
+    let time = document.getElementById("time");
+    let sisaWaktu = {{ $waktu }}; // Sisa waktu dalam detik
+
+    function updateWaktu() {
+        const totalSeconds = Math.max(0, sisaWaktu);
         const mins = Math.floor(totalSeconds / 60) % 60;
         const seconds = totalSeconds % 60;
 
@@ -211,7 +209,31 @@
             // Waktu habis
             time.innerHTML = 'Waktu Habis';
         }
-    }, 1000);
+
+        sisaWaktu--; // Kurangi sisa waktu setiap detik
+    }
+
+    // Fungsi untuk melakukan submit otomatis
+    function submitForm() {
+        document.querySelector("form").submit();
+    }
+
+    // Memanggil fungsi pertama kali saat halaman dimuat
+    updateWaktu();
+
+    // Memperbarui waktu setiap detik
+    const intervalId = setInterval(updateWaktu, 1000);
+
+    // Memeriksa apakah waktu telah habis dan jika iya, lakukan submit otomatis
+    function checkTimeAndSubmit() {
+        if (sisaWaktu <= 0) {
+            clearInterval(intervalId); // Hentikan interval
+            submitForm(); // Lakukan submit otomatis
+        }
+    }
+
+    // Memanggil fungsi `checkTimeAndSubmit` setiap detik
+    setInterval(checkTimeAndSubmit, 1000);
 
     let jawab = document.querySelectorAll(".jawab")
     jawab.forEach(a =>{
