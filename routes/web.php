@@ -33,3 +33,6 @@ Route::get("ujian/skj", function () {
 Route::get("ujian/organisasi", function () {
     return view("4");
 });
+Route::get("hasilUjian", function () {
+    return view("hasilUjian");
+});
