@@ -197,10 +197,6 @@ class ExamController extends Controller
 
     public function save(Request $request, $ujianId,$user_id): \Illuminate\Http\RedirectResponse
     {
-//        $user = $request->user();
-//        $exam = $user->exams()
-//            ->where('divisi_id', $ujianId)
-//            ->firstOrFail();
         $profile = Profile::where('user_id', $user_id)->first();
         $nim = $profile->nim;
         $userExam = UserExam::where('divisi_id', $ujianId)
@@ -259,10 +255,6 @@ class ExamController extends Controller
 
     public function end(Request $request, $ujianId,$user_id): \Illuminate\Http\RedirectResponse
     {
-//        $user = $request->user();
-//        $exam = $user->exams()
-//            ->where('divisi_id', $ujianId)
-//            ->firstOrFail();
         $profile = Profile::where('user_id', $user_id)->first();
         $nim = $profile->nim;
         $userExam = UserExam::where('divisi_id', $ujianId)
@@ -332,10 +324,6 @@ class ExamController extends Controller
     }
 
     public function result(Request $request, $ujianId,$user_id){
-//        $user = $request->user();
-//        $exam = $user->exams()
-//            ->where('divisi_id', $ujianId)
-//            ->firstOrFail();
         $profile = Profile::where('user_id', $user_id)->first();
         $nim = $profile->nim;
         $userExam = UserExam::where('divisi_id', $ujianId)
